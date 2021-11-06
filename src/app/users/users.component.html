@@ -1,0 +1,6 @@
+<div class="card-container">
+    <div *ngFor="let user of users; let i = index;">
+        <app-user-card [user]="user"></app-user-card>
+    </div>
+    <label class='last-element' #lastElement>No more items.</label>
+</div>

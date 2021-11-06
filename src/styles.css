@@ -1,1 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing:content-box;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+} */
+
+.card-container {
+    width: fit-content;
+    
+}
+
+.card {
+    margin: 5px;
+    border: 1px solid grey;
+}
+
+.last-element {
+    font-size: 2rem;
+    margin: 5px;
+}
