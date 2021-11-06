@@ -15,7 +15,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   lastElementObserver!: IntersectionObserver;
   @ViewChild('lastElement') lastElement!: ElementRef;
 
-  constructor(private backend: BackendService, private host: ElementRef) { }
+  constructor(private backend: BackendService) { }
 
   ngOnInit(): void {
     let response = this.backend.getUsers();
