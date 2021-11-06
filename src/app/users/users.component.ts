@@ -32,7 +32,6 @@ export class UsersComponent implements OnInit, AfterViewInit {
     this.lastElementObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.intersectionRatio > 0) {
-          debounceTime(500)
           this.onLoadMore()
         }
       })
