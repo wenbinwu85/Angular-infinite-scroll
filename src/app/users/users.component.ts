@@ -29,11 +29,9 @@ export class UsersComponent implements OnInit, AfterViewInit {
       threshold: 0.5
     }
     this.lastElementObserver = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.intersectionRatio > 0) {
-          this.onLoadMore()
-        }
-      })
+      if (entries[0].intersectionRatio > 0) {
+        this.onLoadMore()
+      }
     }, options);
   }
 
