@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { ElementRef, ViewChild } from '@angular/core';
 import { BackendService } from '../backend.service';
 
@@ -7,13 +7,12 @@ import { BackendService } from '../backend.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent implements OnInit, AfterViewInit {
+export class UsersComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('lastElement') lastElement!: ElementRef;
   users:{[key: string]: any}[] = [];
   currentPage: number = 1;
   totalPages: number = 0;
-
-  lastElementObserver!: IntersectionObserver;
-  @ViewChild('lastElement') lastElement!: ElementRef;
+  lastElementObserver$!: IntersectionObserver;
 
   constructor(private backend: BackendService) { }
 
@@ -28,7 +27,8 @@ export class UsersComponent implements OnInit, AfterViewInit {
       rootMargin: '0px',
       threshold: 0.5
     }
-    this.lastElementObserver = new IntersectionObserver(entries => {
+
+    this.lastElementObserver$ = new IntersectionObserver(entries => {
       if (entries[0].intersectionRatio > 0) {
         this.onLoadMore()
       }
@@ -36,7 +36,11 @@ export class UsersComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.lastElementObserver.observe(this.lastElement.nativeElement)
+    this.lastElementObserver$.observe(this.lastElement.nativeElement)
+  }
+
+  ngOnDestroy() { 
+    this.lastElementObserver$.unobserve(this.lastElement.nativeElement);
   }
 
   onLoadMore() {
